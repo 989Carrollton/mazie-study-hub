@@ -10,7 +10,7 @@
       id: "earth-science",
       title: "Earth Science Lab",
       emoji: "🌍",
-      subtitle: "6th Grade · Chapter 1",
+      subtitle: "6th Grade · Test 9/15/2026 · Earth systems, interior, minerals & rocks",
       welcome: "Hey Mazie! Pick a mode to get ready for your Earth Science test. You've got this! 💪",
       quizTitle: "Earth Science Quiz",
       readyMsg: "You're ready for that Earth Science test!"
