@@ -904,6 +904,7 @@
         </ul>
         <h3>The prophet Isaiah</h3>
         <p>The prophet <strong>Isaiah</strong> spoke about a <strong>Suffering Servant</strong> who would come to save God’s people.</p>
+        <p>Christians understand the Suffering Servant to be <strong>Jesus</strong>.</p>
         <p>The New Testament teaches us about <strong>God’s son Jesus</strong>.</p>
         <h3>The Gospels</h3>
         <ul>
@@ -916,7 +917,7 @@
           <div class="term-row"><strong>Mercy</strong> — Shown by God not abandoning humanity / promising rescue</div>
           <div class="term-row"><strong>Savior</strong> — One people waited for to restore friendship with God</div>
           <div class="term-row"><strong>Isaiah</strong> — Prophet who spoke about a Suffering Servant</div>
-          <div class="term-row"><strong>Suffering Servant</strong> — One Isaiah said would come to save God’s people</div>
+          <div class="term-row"><strong>Suffering Servant</strong> — One Isaiah said would come to save God’s people; understood by Christians to be Jesus</div>
           <div class="term-row"><strong>Gospel</strong> — The good news; Good News about God at work in Jesus</div>
           <div class="term-row"><strong>Four Gospels</strong> — Matthew, Mark, Luke, John</div>
           <div class="term-row"><strong>Jesus</strong> — God’s son (New Testament); God at work in Jesus (Gospel)</div>
@@ -948,7 +949,7 @@
         { term: "Mercy", def: "Shown by God not abandoning humanity and promising to rescue people." },
         { term: "Savior", def: "The one people waited for to restore friendship between God and humanity." },
         { term: "Isaiah", def: "Prophet who spoke about a Suffering Servant who would save God’s people." },
-        { term: "Suffering Servant", def: "The one Isaiah said would come to save God’s people." },
+        { term: "Suffering Servant", def: "The one Isaiah said would come to save God’s people; understood by Christians to be Jesus." },
         { term: "Gospel", def: "The good news; the Good News about God at work in Jesus." },
         { term: "Four Gospels", def: "Matthew, Mark, Luke, and John." },
         { term: "Jesus", def: "God’s son (New Testament); the Gospel is about God at work in Jesus." }
@@ -1120,7 +1121,14 @@
           q: "The prophet ____ spoke about a Suffering Servant who would save God’s people.",
           choices: ["Cain", "Isaiah", "Noah", "Mark"],
           answer: 1,
-          explain: "Isaiah spoke about a Suffering Servant. (Notes left blank who Christians understand that to be.)"
+          explain: "Isaiah spoke about a Suffering Servant. Christians understand that Suffering Servant to be Jesus."
+        },
+        {
+          type: "mc",
+          q: "Christians understand the Suffering Servant (from Isaiah) to be ____.",
+          choices: ["Noah", "Cain", "Jesus", "Abel"],
+          answer: 2,
+          explain: "Christians understand the Suffering Servant to be Jesus. (Brett confirmed from the blank in Mazie’s notes.)"
         },
         {
           type: "mc",
