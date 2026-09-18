@@ -547,7 +547,7 @@
           <div class="term-row"><strong>Intimidation</strong> — The action of frightening someone, especially in order to make them do what one wants.</div>
           <div class="term-row"><strong>Lurk</strong> — To lie in wait in a place of concealment, especially for an evil or sneaky purpose.</div>
           <div class="term-row"><strong>Malicious</strong> — Intending or intended to cause harm, injury, or distress to others.</div>
-          <div class="term-row"><strong>Obstruct</strong> — To block, clog, or impede the passage or progress of something.</div>
+          <div class="term-row"><strong>Obstricate</strong> — To block, clog, or impede the passage or progress of something.</div>
           <div class="term-row"><strong>Perpetrator</strong> — A person who carries out a harmful, illegal, or immoral act.</div>
           <div class="term-row"><strong>Plausible</strong> — Seeming reasonable or probable.</div>
           <div class="term-row"><strong>Sabotage</strong> — Deliberately destroying, damaging, or obstructing something, especially for political or covert advantage.</div>
@@ -568,7 +568,7 @@
       { term: "Intimidation", def: "The action of frightening someone, especially in order to make them do what one wants." },
       { term: "Lurk", def: "To lie in wait in a place of concealment, especially for an evil or sneaky purpose." },
       { term: "Malicious", def: "Intending or intended to cause harm, injury, or distress to others." },
-      { term: "Obstruct", def: "To block, clog, or impede the passage or progress of something." },
+      { term: "Obstricate", def: "To block, clog, or impede the passage or progress of something." },
       { term: "Perpetrator", def: "A person who carries out a harmful, illegal, or immoral act." },
       { term: "Plausible", def: "Seeming reasonable or probable." },
       { term: "Sabotage", def: "Deliberately destroying, damaging, or obstructing something, especially for political or covert advantage." },
@@ -645,7 +645,7 @@
       q: "Which word means: \"Intending or intended to cause harm, injury, or distress to others.\"",
       choices: [
         "Indignation",
-        "Obstruct",
+        "Obstricate",
         "Malicious",
         "Lurk"
       ],
@@ -657,12 +657,12 @@
       q: "Which word means: \"To block, clog, or impede the passage or progress of something.\"",
       choices: [
         "Impulsive",
-        "Obstruct",
+        "Obstricate",
         "Perpetrator",
         "Vandalize"
       ],
       answer: 1,
-      explain: "Obstruct means: To block, clog, or impede the passage or progress of something."
+      explain: "Obstricate means: To block, clog, or impede the passage or progress of something."
     },
     {
       type: "mc",
