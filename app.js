@@ -37,7 +37,7 @@
       id: "hoot",
       title: "ELA · Hoot",
       emoji: "🦉",
-      subtitle: "6th Grade · Hoot by Carl Hiaasen · Practice test",
+      subtitle: "6th Grade · Test 10/1/2026 · Hoot by Carl Hiaasen",
       welcome: "Hey Mazie! Study Hoot by Carl Hiaasen — characters, plot, and big ideas. Every quiz round mixes up the questions! 💪",
       quizTitle: "Hoot Quiz",
       readyMsg: "You're ready for that Hoot test!",
