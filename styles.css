@@ -578,3 +578,12 @@ body {
 /* Unit cards (reuse mode-card; slight accent) */
 .unit-card { border-color: rgba(232,196,122,0.35); }
 .unit-card:hover, .unit-card:focus { border-color: var(--sand); }
+
+/* Subject folders */
+.folder-next { font-size: 0.85rem; color: var(--sand); opacity: 0.9; }
+.test-tag {
+  display: inline-block; align-self: flex-start; margin-top: 0.35rem;
+  font-size: 0.75rem; font-weight: 700; padding: 0.15rem 0.55rem; border-radius: 999px;
+}
+.tag-upcoming { background: var(--sand); color: #1b1b1b; }
+.tag-past { background: rgba(255,255,255,0.12); color: var(--text-muted); }

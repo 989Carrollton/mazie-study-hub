@@ -8,6 +8,8 @@
   const UNITS = [
     {
       id: "earth-science",
+      subject: "science",
+      testDate: "2026-09-15",
       title: "Earth Science Lab",
       emoji: "🌍",
       subtitle: "6th Grade · Test 9/15/2026 · Earth systems, interior, minerals & rocks",
@@ -17,6 +19,8 @@
     },
     {
       id: "ela-vocab",
+      subject: "ela",
+      testDate: "2026-09-18",
       title: "ELA Vocabulary",
       emoji: "📚",
       subtitle: "6th Grade · Test 9/18/2026 · Vocabulary",
@@ -26,6 +30,8 @@
     },
     {
       id: "religion",
+      subject: "religion",
+      testDate: "2026-09-18",
       title: "Religion · Ch. 3–4",
       emoji: "✝️",
       subtitle: "6th Grade · Test 9/18/2026 · Creation, sin, covenant & Gospels",
@@ -35,6 +41,8 @@
     },
     {
       id: "hoot",
+      subject: "ela",
+      testDate: "2026-10-01",
       title: "ELA · Hoot",
       emoji: "🦉",
       subtitle: "6th Grade · Test 10/1/2026 · Hoot by Carl Hiaasen",
@@ -46,6 +54,8 @@
     },
     {
       id: "religion-ch5",
+      subject: "religion",
+      testDate: "2026-10-01",
       title: "Religion · Ch. 5",
       emoji: "📖",
       subtitle: "6th Grade · Test 10/1/2026 · The Patriarchs: Abraham to Joseph",
@@ -57,6 +67,8 @@
     },
     {
       id: "earth-processes",
+      subject: "science",
+      testDate: "2026-10-06",
       title: "Earth Science · Ch. 2",
       emoji: "🪨",
       subtitle: "6th Grade · Test 10/6/2026 · Weathering, erosion & fossils",
@@ -69,6 +81,8 @@
 ,
     {
       id: "jungle-book",
+      subject: "ela",
+      testDate: "2026-10-14",
       title: "ELA · The Jungle Book",
       emoji: "🐺",
       subtitle: "6th Grade · Test 10/14/2026 · The Jungle Book by Rudyard Kipling",
@@ -1259,10 +1273,50 @@
     }
   });
 
+  // ——— Subject folders ———
+  // To add a unit: give its UNITS entry a `subject` (id below) and an ISO `testDate`.
+  // Unknown subject ids get an automatic folder.
+  const SUBJECTS = [
+    { id: "ela", name: "ELA", emoji: "📚" },
+    { id: "religion", name: "Religion", emoji: "✝️" },
+    { id: "science", name: "Science", emoji: "🔬" }
+  ];
+  let currentFolder = null;
+
+  function todayISO() {
+    const d = new Date();
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  }
+  function prettyDate(iso) {
+    if (!iso) return "";
+    const [y, m, d] = iso.split("-").map(Number);
+    return m + "/" + d + "/" + y;
+  }
+  function subjectList() {
+    const list = SUBJECTS.slice();
+    UNITS.forEach((u) => {
+      const sid = u.subject || "other";
+      if (!list.some((s) => s.id === sid)) list.push({ id: sid, name: sid.charAt(0).toUpperCase() + sid.slice(1), emoji: "📁" });
+    });
+    return list.filter((s) => UNITS.some((u) => (u.subject || "other") === s.id));
+  }
+  function unitsIn(sid) {
+    return UNITS.filter((u) => (u.subject || "other") === sid)
+      .sort((a, b) => (b.testDate || "").localeCompare(a.testDate || ""));
+  }
+  function folderById(sid) { return subjectList().find((s) => s.id === sid); }
+
   // ——— Hub / unit branding ———
   function setHubBrand() {
-    brandTitle.textContent = "Mazie's Study Hub";
-    brandSubtitle.textContent = "Pick a subject to study";
+    const f = currentFolder && folderById(currentFolder);
+    if (f) {
+      const n = unitsIn(f.id).length;
+      brandTitle.textContent = f.emoji + " " + f.name;
+      brandSubtitle.textContent = n + (n === 1 ? " test" : " tests") + " · newest first";
+    } else {
+      brandTitle.textContent = "Mazie's Study Hub";
+      brandSubtitle.textContent = "Pick a subject to study";
+    }
   }
 
   function setUnitBrand(unit) {
@@ -1272,25 +1326,64 @@
 
   function renderUnits() {
     const grid = $("#units-grid");
+    const welcome = document.querySelector("#view-units .welcome");
     grid.innerHTML = "";
-    UNITS.forEach((unit) => {
+    const today = todayISO();
+    if (!currentFolder) {
+      if (welcome) welcome.textContent = "Hey Mazie! Pick a subject folder. You've got this! 💪";
+      subjectList().forEach((s) => {
+        const units = unitsIn(s.id);
+        const upcoming = units.filter((u) => u.testDate && u.testDate >= today)
+          .sort((a, b) => a.testDate.localeCompare(b.testDate))[0];
+        const btn = document.createElement("button");
+        btn.className = "mode-card folder-card";
+        btn.type = "button";
+        btn.dataset.folder = s.id;
+        btn.innerHTML =
+          '<span class="mode-emoji">' + s.emoji + "</span>" +
+          '<span class="mode-title">' + s.name + "</span>" +
+          '<span class="mode-desc">' + units.length + (units.length === 1 ? " test" : " tests") + "</span>" +
+          '<span class="folder-next">' + (upcoming
+            ? "Next: " + upcoming.title + " · " + prettyDate(upcoming.testDate)
+            : "No upcoming tests") + "</span>";
+        btn.addEventListener("click", () => openFolder(s.id));
+        grid.appendChild(btn);
+      });
+      return;
+    }
+    if (welcome) welcome.textContent = "Newest tests are at the top. Pick one to study! 💪";
+    unitsIn(currentFolder).forEach((unit) => {
       const btn = document.createElement("button");
       btn.className = "mode-card unit-card";
       btn.type = "button";
       btn.dataset.unit = unit.id;
+      const tag = unit.testDate
+        ? (unit.testDate >= today
+          ? '<span class="test-tag tag-upcoming">Upcoming</span>'
+          : '<span class="test-tag tag-past">Past test</span>')
+        : "";
       btn.innerHTML =
         '<span class="mode-emoji">' + unit.emoji + "</span>" +
         '<span class="mode-title">' + unit.title + "</span>" +
-        '<span class="mode-desc">' + unit.subtitle + "</span>";
+        '<span class="mode-desc">' + unit.subtitle + "</span>" + tag;
       btn.addEventListener("click", () => selectUnit(unit.id));
       grid.appendChild(btn);
     });
+  }
+
+  function openFolder(sid) {
+    currentFolder = sid;
+    renderUnits();
+    setHubBrand();
+    showView("units");
+    window.scrollTo(0, 0);
   }
 
   function selectUnit(id) {
     const unit = UNITS.find((u) => u.id === id);
     if (!unit) return;
     currentUnit = unit;
+    if (unit.subject) currentFolder = unit.subject;
     setUnitBrand(unit);
     $("#unit-welcome").textContent = unit.welcome;
     const quizTitle = $("#quiz-intro-title");
@@ -1299,33 +1392,29 @@
   }
 
   // Navigation
-  // views: units (hub) → unit-home (modes) → study | flash | quiz
+  // views: units (subject folders → folder's tests) → unit-home (modes) → study | flash | quiz
   function showView(name) {
     ["units", "unit-home", "study", "flash", "quiz"].forEach((v) => {
       const el = $("#view-" + v);
       if (el) el.classList.toggle("hidden", v !== name);
     });
-    btnHome.classList.toggle("hidden", name === "units");
+    btnHome.classList.toggle("hidden", name === "units" && !currentFolder);
   }
 
   btnHome.addEventListener("click", () => {
-    const studyEl = $("#view-study");
-    const flashEl = $("#view-flash");
-    const quizEl = $("#view-quiz");
-    const unitHomeEl = $("#view-unit-home");
-    const inMode =
-      (studyEl && !studyEl.classList.contains("hidden")) ||
-      (flashEl && !flashEl.classList.contains("hidden")) ||
-      (quizEl && !quizEl.classList.contains("hidden"));
-    if (inMode) {
+    const isOpen = (id) => { const el = $("#view-" + id); return el && !el.classList.contains("hidden"); };
+    if (isOpen("study") || isOpen("flash") || isOpen("quiz")) {
       showView("unit-home");
       if (currentUnit) setUnitBrand(currentUnit);
-    } else if (unitHomeEl && !unitHomeEl.classList.contains("hidden")) {
+    } else if (isOpen("unit-home")) {
       currentUnit = null;
+      renderUnits();
       setHubBrand();
       showView("units");
     } else {
+      currentFolder = null;
       currentUnit = null;
+      renderUnits();
       setHubBrand();
       showView("units");
     }
